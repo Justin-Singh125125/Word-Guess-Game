@@ -6,7 +6,8 @@ var game = {
     //an array full of the words to guess
     guessTheWords: ['Aladdin', 'Dumbo', 'Bambi', 'Cinderella', 'Pocahontas', 'Hercules', 'Mulan', 'Tarzan', 'Pinocchio', 'Moana', 'Brave', 'Tangled', 'Rapunzal'],
     //holds the total amount of guesses the user has, 
-    remainingGuesses: 20,
+
+    remainingGuesses: 0,
 
     //an empty array where we will push the words already guessed
     //modify those dashes to be removed with each letter
@@ -22,89 +23,89 @@ var game = {
     randomNumber: 0,
 
     //current word
-    currentWord: 0,
+    currentWord: '',
 
-    //functions that access these variables
-    //we cant use void for functions that do not return anything because java thinks its not a function
-    decreaseRemainingGuesses: function () {
-        //subtracts 1 from the remaining number of guesses
-        game.remainingGuesses--;
+};
 
-
-        //modifying functions
-    },
-    increaseNumOfGuesses: function () {
-        game.numberOfGuesses++;
-    },
-    increaseWins: function () {
-        wins++;
-    },
-
-    displayCurrentWordDashes: function () {
-        for (index = 0; index < game.currentWord.length; index++) {
-            //fill up dashes
-            game.dashesArray.push('-');
-            document.write(game.dashesArray[index]);
-        }
-    },
-
-    setCurrentWord: function () {
-        //stores random word in current word
-        game.currentWord = game.guessTheWords[game.getRandomNumber()];
-    },
-
-
-    //returning functions
-    getRemainingGuesses: function () {
-        return game.remainingGuesses;
-    },
-    getNumOfWins: function () {
-        return game.wins;
-
-    },
-
-    getNumOfGuesses: function () {
-        return game.numberOfGuesses;
-    },
-
-    //returns a random number from the size of the wrods array
-    getRandomNumber: function () {
-        return Math.floor(Math.random() * game.guessTheWords.length);
-    },
-
-    //get a word from the array
-
-    getCurrentWord: function () {
-        return game.currentWord;
-    },
-
-
+function setCurrentWord() {
+    game.currentWord = game.guessTheWords[Math.floor(Math.random() * game.guessTheWords.length)];
+    console.log(game.currentWord);
+}
+function fillDashesArray() {
+    for (index = 0; index < game.currentWord.length; index++) {
+        game.dashesArray.push("-");
+    }
+}
+function displayDashesArray() {
+    for (index = 0; index < game.currentWord.length; index++) {
+        document.getElementById("current-word").innerHTML += game.dashesArray[index];
+    }
+}
+function resetDashes() {
+    document.getElementById("current-word").innerHTML = "";
+}
+function displayWins() {
+    document.getElementById("wins").innerHTML = "Wins: " + game.wins;
 }
 
 
+// main function 
+var intro = "PRESS ANY KEY TO GET STARTED";
+document.getElementById("display-start").innerHTML = intro;
 
-console.log("PRESS ANY KEY TO GET STARTED!");
+nextWord = true;
+game.remainingGuesses = 20;
 
 //if a key is pressed
 document.onkeydown = function (e) {
 
+    if (nextWord) {
+        resetDashes();
+        //set current word
+        setCurrentWord();
+        //fill up the dashes
+        fillDashesArray();
+        //display the dashes on screen
+        displayDashesArray();
 
-    //display current word
+        //displays number of wins
 
-    console.log('CURRENT WORD');
+        displayWins();
+        nextWord = false;
+    }
+    else {
+        //set the loop control variable
+
+        //get first guess
+
+        console.log(game.currentGuess);
+
+        for (index = 0; index < game.currentWord.length; index++) {
+            game.currentGuess = e.key;
+            //if our current letter guess matches any of the letters inside current word
+            if (game.currentGuess === game.currentWord[index]) {
+                //modify the dashes array and reput it
+                game.dashesArray[index] = game.currentGuess;
+                resetDashes();
+                displayDashesArray();
+                console.log('inside');
+
+            }
+            else {
+                game.remainingGuesses--;
+                console.log('outside');
+            }
+        }
+
+    }
 
 
-    //first things first, set the current word
-    game.setCurrentWord();
-    //now we display the current words dashes
-    game.displayCurrentWordDashes();
 
-    console.log('NUMBER OF GUESSES REMAINING');
-    console.log(game.getRemainingGuesses());
 
-    console.log("LETTERS ALREADY GUESSED");
 
-    game.
+
+
+
 
 
 
