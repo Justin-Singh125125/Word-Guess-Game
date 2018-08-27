@@ -8,6 +8,7 @@ var game = {
     //holds the total amount of guesses the user has, 
 
     remainingGuesses: 0,
+    numOfLosses: 0,
 
     whenToChange: 0,
 
@@ -48,6 +49,13 @@ function resetDashes() {
 function displayWins() {
     document.getElementById("wins").innerHTML = "Wins: " + game.wins;
 }
+function displayLosses() {
+    document.getElementById("losses").innerHTML = "Losses: " + game.numOfLosses;
+}
+function displayRemainingGuesses() {
+    document.getElementById("remainingGuesses").innerHTML = "Remaining Guesses: " + game.remainingGuesses;
+}
+
 
 
 // main function 
@@ -56,9 +64,10 @@ document.getElementById("display-start").innerHTML = intro;
 
 
 //we want a new word from the beginning
-nextWord = true;
+var nextWord = true;
 //alloted 20 guessed
 game.remainingGuesses = 20;
+var isFound = false;
 
 //if a key is pressed this function will execute
 document.onkeydown = function (e) {
@@ -82,16 +91,15 @@ document.onkeydown = function (e) {
         //displays number of wins
 
         displayWins();
+        displayLosses();
+        displayRemainingGuesses();
         nextWord = false;
     }
     else {
-        isFound = false;
-        if (!isFound) {
-
-        }
         //if our current guess equals the first element, uppercase it so it fits
         if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
             game.dashesArray[0] = game.currentGuess.toUpperCase();
+            game.whenToChange++;
         }
         //suppost to treat the current set word as an array by accessing its characters
         for (index = 0; index < game.currentWord.length; index++) {
@@ -99,16 +107,36 @@ document.onkeydown = function (e) {
             //if our current letter guess matches any of the letters inside current word
             if (game.currentGuess === game.currentWord[index]) {
                 game.dashesArray[index] = game.currentGuess;
+                //if the word is found
+                //increment to the length to know when the word is full
+                game.whenToChange++;
+                console.log('when to change: ' + game.whenToChange);
+                console.log('current word length: ' + game.currentWord.length);
             }
-            //if there guess does not equal one of the letters, subtract their remaining guesses
 
         }
+        if (game.whenToChange === game.currentWord.length) {
+
+
+
+            nextWord = true;
+
+
+
+        }
+
+
         //these two are outside of the loop because they will not display the full content of dashes array
         resetDashes();
         displayDashesArray();
+        //if one of the letters is not found, do this
 
 
     }
+
+
+
+
 
 
 
