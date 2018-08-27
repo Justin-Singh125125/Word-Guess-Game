@@ -57,16 +57,31 @@ function displayRemainingGuesses() {
 }
 //checks an array
 function checkArray() {
-    var found = false;
-    for (index = 0; index < game.currentWord.length; index++) {
-        if (game.currentGuess === game.dashesArray[index]) {
+
+    var found = true;
+    for (var index = 0; index < game.currentWord.length; index++) {
+        //if our current guess is any of the letters 
+        if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
+            game.dashesArray[0] = game.currentGuess.toUpperCase();
+        }
+        else if (game.currentGuess === game.currentWord[index]) {
+            console.log("check array test");
+            console.log('check array: ' + game.currentWord[index]);
+
             found = true;
             return found;
+
+
+
         }
         else {
-            return false;
+            found = false;
         }
+
+
+
     }
+    return found;
 }
 
 
@@ -80,7 +95,7 @@ document.getElementById("display-start").innerHTML = intro;
 var nextWord = true;
 //alloted 20 guessed
 game.remainingGuesses = 20;
-var isFound = false;
+var isFound = true;
 
 //if a key is pressed this function will execute
 document.onkeydown = function (e) {
@@ -115,15 +130,17 @@ document.onkeydown = function (e) {
             game.whenToChange++;
         }
         isFound = checkArray();
+        console.log(isFound);
+
         //if our current guess does not equal any of the index
-        if (!isFound) {
+        if (isFound === false) {
             game.remainingGuesses--;
         }
 
         //suppost to treat the current set word as an array by accessing its characters
-        for (index = 0; index < game.currentWord.length; index++) {
+        for (var index = 0; index < game.currentWord.length; index++) {
 
-            //if
+
             if (game.dashesArray[index] === game.currentGuess) {
                 console.log('key already hit');
             }
@@ -159,6 +176,8 @@ document.onkeydown = function (e) {
         //these two are outside of the loop because they will not display the full content of dashes array
         resetDashes();
         displayDashesArray();
+        displayRemainingGuesses();
+
         //if one of the letters is not found, do this
 
 
