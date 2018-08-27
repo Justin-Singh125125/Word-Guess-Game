@@ -38,6 +38,11 @@ function fillDashesArray() {
         game.dashesArray.push("-");
     }
 }
+function fillDashesArrayAfter() {
+    for (index = 0; index < game.currentWord.length; index++) {
+        game.dashesArray[index] = "-";
+    }
+}
 function displayDashesArray() {
     for (index = 0; index < game.currentWord.length; index++) {
         document.getElementById("current-word").innerHTML += game.dashesArray[index];
@@ -54,6 +59,9 @@ function displayLosses() {
 }
 function displayRemainingGuesses() {
     document.getElementById("remainingGuesses").innerHTML = "Remaining Guesses: " + game.remainingGuesses;
+}
+function addSameLetters() {
+
 }
 //checks an array
 function checkArray() {
@@ -162,21 +170,36 @@ document.onkeydown = function (e) {
 
 
         }
-        if (game.whenToChange === game.currentWord.length) {
+        resetDashes();
+        fillDashesArray();
+        displayDashesArray();
+        displayRemainingGuesses();
 
 
-
+        if (game.whenToChange >= game.currentWord.length) {
+            game.wins++;
+            game.whenToChange = 0;
+            game.remainingGuesses = 20;
             nextWord = true;
+            resetDashes();
 
+            displayDashesArray();
+            fillDashesArrayAfter();
+        }
+        if (game.remainingGuesses <= 0) {
+            game.numOfLosses++;
+            game.whenToChange = 0;
+            game.remainingGuesses = 20;
+            nextWord = true;
+            resetDashes();
 
-
+            displayDashesArray();
+            fillDashesArrayAfter();
         }
 
 
+
         //these two are outside of the loop because they will not display the full content of dashes array
-        resetDashes();
-        displayDashesArray();
-        displayRemainingGuesses();
 
         //if one of the letters is not found, do this
 
