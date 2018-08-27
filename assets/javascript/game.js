@@ -55,6 +55,19 @@ function displayLosses() {
 function displayRemainingGuesses() {
     document.getElementById("remainingGuesses").innerHTML = "Remaining Guesses: " + game.remainingGuesses;
 }
+//checks an array
+function checkArray() {
+    var found = false;
+    for (index = 0; index < game.currentWord.length; index++) {
+        if (game.currentGuess === game.dashesArray[index]) {
+            found = true;
+            return found;
+        }
+        else {
+            return false;
+        }
+    }
+}
 
 
 
@@ -101,18 +114,35 @@ document.onkeydown = function (e) {
             game.dashesArray[0] = game.currentGuess.toUpperCase();
             game.whenToChange++;
         }
+        isFound = checkArray();
+        //if our current guess does not equal any of the index
+        if (!isFound) {
+            game.remainingGuesses--;
+        }
+
         //suppost to treat the current set word as an array by accessing its characters
         for (index = 0; index < game.currentWord.length; index++) {
 
-            //if our current letter guess matches any of the letters inside current word
-            if (game.currentGuess === game.currentWord[index]) {
-                game.dashesArray[index] = game.currentGuess;
-                //if the word is found
-                //increment to the length to know when the word is full
-                game.whenToChange++;
-                console.log('when to change: ' + game.whenToChange);
-                console.log('current word length: ' + game.currentWord.length);
+            //if
+            if (game.dashesArray[index] === game.currentGuess) {
+                console.log('key already hit');
             }
+            else {
+                //if our current letter guess matches any of the letters inside current word
+                if (game.currentGuess === game.currentWord[index]) {
+                    game.dashesArray[index] = game.currentGuess;
+                    //if the word is already in the dashes array, do not increase when to change
+                    if (game.currentGuess === game.currentWord[index])
+                        //increment to the length to know when the word is full
+                        game.whenToChange++;
+                    console.log('when to change: ' + game.whenToChange);
+                    console.log('current word length: ' + game.currentWord.length);
+                }
+
+
+
+            }
+
 
         }
         if (game.whenToChange === game.currentWord.length) {
