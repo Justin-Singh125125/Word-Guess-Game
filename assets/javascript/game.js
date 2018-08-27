@@ -31,7 +31,6 @@ var game = {
 
 function setCurrentWord() {
     game.currentWord = game.guessTheWords[Math.floor(Math.random() * game.guessTheWords.length)];
-    console.log(game.currentWord);
 }
 function fillDashesArray() {
     for (index = 0; index < game.currentWord.length; index++) {
@@ -55,18 +54,26 @@ function displayWins() {
 var intro = "PRESS ANY KEY TO GET STARTED";
 document.getElementById("display-start").innerHTML = intro;
 
+
+//we want a new word from the beginning
 nextWord = true;
+//alloted 20 guessed
 game.remainingGuesses = 20;
 
-//if a key is pressed
+//if a key is pressed this function will execute
 document.onkeydown = function (e) {
-    //we get the key, and now we have to 
+    //key that we guess gets stored here
     game.currentGuess = e.key;
+    console.log(game.currentGuess);
 
+    //if we want a new word do this
     if (nextWord) {
+        //resets an text in the dashes array area
         resetDashes();
-        //set current word
+        //sets current word
         setCurrentWord();
+        //check what word is set
+        console.log(game.currentWord);
         //fill up the dashes
         fillDashesArray();
         //display the dashes on screen
@@ -78,43 +85,28 @@ document.onkeydown = function (e) {
         nextWord = false;
     }
     else {
-        //set the loop control variable
+        isFound = false;
+        if (!isFound) {
 
-        //get first guess
-
-        console.log(game.currentGuess);
-
+        }
+        //if our current guess equals the first element, uppercase it so it fits
+        if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
+            game.dashesArray[0] = game.currentGuess.toUpperCase();
+        }
+        //suppost to treat the current set word as an array by accessing its characters
         for (index = 0; index < game.currentWord.length; index++) {
 
-            for (j = 0; j < game.currentWord.length; j++) {
-
-            }
             //if our current letter guess matches any of the letters inside current word
             if (game.currentGuess === game.currentWord[index]) {
-                //modify the dashes array and reput it
                 game.dashesArray[index] = game.currentGuess;
-                resetDashes();
-                displayDashesArray();
-                console.log('inside');
-                game.whenToChange++;
-                console.log(game.currentWord.length);
-
-
-                if (game.whenToChange >= game.currentWord.length) {
-                    nextWord = true;
-                    game.wins++;
-
-                }
-
             }
-            else {
-                game.remainingGuesses--;
-                console.log('outside');
-                if (game.remainingGuesses <= 0) {
-                    nextWord = true;
-                }
-            }
+            //if there guess does not equal one of the letters, subtract their remaining guesses
+
         }
+        //these two are outside of the loop because they will not display the full content of dashes array
+        resetDashes();
+        displayDashesArray();
+
 
     }
 
