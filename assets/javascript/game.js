@@ -9,6 +9,8 @@ var game = {
 
     remainingGuesses: 0,
 
+    whenToChange: 0,
+
     //an empty array where we will push the words already guessed
     //modify those dashes to be removed with each letter
     //everytime a new word is selected, fill this array up with dashes
@@ -58,6 +60,8 @@ game.remainingGuesses = 20;
 
 //if a key is pressed
 document.onkeydown = function (e) {
+    //we get the key, and now we have to 
+    game.currentGuess = e.key;
 
     if (nextWord) {
         resetDashes();
@@ -81,7 +85,10 @@ document.onkeydown = function (e) {
         console.log(game.currentGuess);
 
         for (index = 0; index < game.currentWord.length; index++) {
-            game.currentGuess = e.key;
+
+            for (j = 0; j < game.currentWord.length; j++) {
+
+            }
             //if our current letter guess matches any of the letters inside current word
             if (game.currentGuess === game.currentWord[index]) {
                 //modify the dashes array and reput it
@@ -89,11 +96,23 @@ document.onkeydown = function (e) {
                 resetDashes();
                 displayDashesArray();
                 console.log('inside');
+                game.whenToChange++;
+                console.log(game.currentWord.length);
+
+
+                if (game.whenToChange >= game.currentWord.length) {
+                    nextWord = true;
+                    game.wins++;
+
+                }
 
             }
             else {
                 game.remainingGuesses--;
                 console.log('outside');
+                if (game.remainingGuesses <= 0) {
+                    nextWord = true;
+                }
             }
         }
 
