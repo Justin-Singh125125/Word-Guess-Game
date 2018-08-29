@@ -119,8 +119,10 @@ function isAlreadyGuessed() {
 }
 
 function writeAlreadyGuessed() {
+    for (var i = 0; i < game.lettersGuessed.length; i++) {
+        document.getElementById("display-guessed").innerHTML += game.lettersGuessed[i] + ', ';
+    }
 
-    document.getElementById("display-guessed").innerHTML = game.lettersGuessed;
 
 
 }
@@ -199,7 +201,9 @@ document.onkeydown = function (e) {
                 //pushes the letter to the array
                 game.lettersGuessed.push(game.currentGuess);
                 //write to document
+                eraseAlreadyGuessed();
                 writeAlreadyGuessed();
+
                 //test
                 console.log('remainingGuesses: ' + game.remainingGuesses);
                 console.log('lettersArray: ' + game.lettersGuessed);
