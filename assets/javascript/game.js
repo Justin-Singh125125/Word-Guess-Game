@@ -93,10 +93,41 @@ function checkArray() {
 }
 
 
+function isAlreadyGuessed() {
+    //assume the word is not already gussed
+    var status = false;
+    var tracker = 0;
+    for (var i = 0; i < game.lettersGuessed.length; i++) {
+        //if the letter we guess is not in the letters array
 
-// main function 
+        if (game.currentGuess === game.lettersGuessed[i]) {
+            //we return true that way we can 
+            tracker++;
+
+        }
+    }
+
+    if (tracker > 0) {
+        status = true;
+    }
+    else {
+        status = false;
+    }
+
+    console.log('status: ' + status);
+    return status;
+
+}
+
+
+
+// main function ******************************************************************************
 var intro = "PRESS ANY KEY TO GET STARTED";
 document.getElementById("display-start").innerHTML = intro;
+
+
+// a bool variable to check guessed letters
+var alreadyInputed = false;
 
 
 //we want a new word from the beginning
@@ -132,76 +163,105 @@ document.onkeydown = function (e) {
         nextWord = false;
     }
     else {
-        //if our current guess equals the first element, uppercase it so it fits
-        if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
-            game.dashesArray[0] = game.currentGuess.toUpperCase();
-            game.whenToChange++;
-        }
-        isFound = checkArray();
-        console.log(isFound);
 
-        //if our current guess does not equal any of the index
-        if (isFound === false) {
+
+        //first thing we check if we already guessed that letter
+        alreadyInputed = isAlreadyGuessed();
+
+        if (!alreadyInputed) {
+
+            //decrease by 1
             game.remainingGuesses--;
+            game.lettersGuessed.push(game.currentGuess);
+            console.log('remainingGuesses: ' + game.remainingGuesses);
+            console.log('lettersArray: ' + game.lettersGuessed);
         }
-
-        //suppost to treat the current set word as an array by accessing its characters
-        for (var index = 0; index < game.currentWord.length; index++) {
-
-
-            if (game.dashesArray[index] === game.currentGuess) {
-                console.log('key already hit');
+        else {
+            //if our current guess equals the first element, uppercase it so it fits
+            if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
+                //sets the first element of the dashes array to an uppercase version of the guess
+                game.dashesArray[0] = game.currentGuess.toUpperCase();
+                //increases so program knows when to change the word
+                game.whenToChange++;
             }
-            else {
-                //if our current letter guess matches any of the letters inside current word
-                if (game.currentGuess === game.currentWord[index]) {
-                    game.dashesArray[index] = game.currentGuess;
-                    //if the word is already in the dashes array, do not increase when to change
-                    if (game.currentGuess === game.currentWord[index])
-                        //increment to the length to know when the word is full
-                        game.whenToChange++;
-                    console.log('when to change: ' + game.whenToChange);
-                    console.log('current word length: ' + game.currentWord.length);
+            //checks the current word and treats it as an array of chars
+            isFound = checkArray();
+
+            //just a test, delete
+            console.log(isFound);
+            //if our guess is not the same as any of the elements in the array
+            if (game.currentGuess != game.dashesArray[index]) {
+                //push that guess do the letters array
+                game.lettersGuessed.push(game.currentGuess);
+                //where you left off
+                ///////********************************************************************************************** */
+                //now we need to check the array for the file
+                //but first test
+                console.log('letters guessed' + game.lettersGuessed);
+
+            }
+
+            //suppost to treat the current set word as an array by accessing its characters
+            for (var index = 0; index < game.currentWord.length; index++) {
+
+                //if the elements in the dashes array are the same as our current guess, do this
+                if (game.dashesArray[index] === game.currentGuess) {
+                    //so we already did t
+                    console.log('key already hit');
+                }
+                else {
+                    //if our current letter guess matches any of the letters inside current word
+                    if (game.currentGuess === game.currentWord[index]) {
+                        game.dashesArray[index] = game.currentGuess;
+                        //if the word is already in the dashes array, do not increase when to change
+                        if (game.currentGuess === game.currentWord[index])
+                            //increment to the length to know when the word is full
+                            game.whenToChange++;
+                        console.log('when to change: ' + game.whenToChange);
+                        console.log('current word length: ' + game.currentWord.length);
+                    }
+
+
+
                 }
 
 
+            }
+            resetDashes();
+            fillDashesArray();
+            displayDashesArray();
+            displayRemainingGuesses();
 
+
+            if (game.whenToChange >= game.currentWord.length) {
+                game.wins++;
+                game.whenToChange = 0;
+                game.remainingGuesses = 20;
+                nextWord = true;
+                resetDashes();
+
+                displayDashesArray();
+                fillDashesArrayAfter();
+            }
+            if (game.remainingGuesses <= 0) {
+                game.numOfLosses++;
+                game.whenToChange = 0;
+                game.remainingGuesses = 20;
+                nextWord = true;
+                resetDashes();
+
+                displayDashesArray();
+                fillDashesArrayAfter();
             }
 
 
-        }
-        resetDashes();
-        fillDashesArray();
-        displayDashesArray();
-        displayRemainingGuesses();
 
+            //these two are outside of the loop because they will not display the full content of dashes array
 
-        if (game.whenToChange >= game.currentWord.length) {
-            game.wins++;
-            game.whenToChange = 0;
-            game.remainingGuesses = 20;
-            nextWord = true;
-            resetDashes();
+            //if one of the letters is not found, do this
 
-            displayDashesArray();
-            fillDashesArrayAfter();
-        }
-        if (game.remainingGuesses <= 0) {
-            game.numOfLosses++;
-            game.whenToChange = 0;
-            game.remainingGuesses = 20;
-            nextWord = true;
-            resetDashes();
-
-            displayDashesArray();
-            fillDashesArrayAfter();
         }
 
-
-
-        //these two are outside of the loop because they will not display the full content of dashes array
-
-        //if one of the letters is not found, do this
 
 
     }
