@@ -20,6 +20,8 @@ var game = {
     randomNumber: 0,
     //current word
     currentWord: '',
+    //holds the song links
+    winningSongs: [],
 
 };
 function setCurrentWord() {
@@ -104,6 +106,15 @@ function eraseAlreadyGuessed() {
 }
 function showImage() {
     document.getElementById("img").style.visibility = 'visible'
+}
+function fillWinningSongs() {
+    game.winningSongs[0] = "./assets/images/aladdin.jpg";
+
+}
+function selectSong() {
+    var songLink = document.getElementById("img");
+    songLink.src = game.winningSongs[0];
+    console.log(game.winningSongs[0]);
 }
 // main function ******************************************************************************
 var intro = "PRESS ANY KEY TO GET STARTED";
@@ -192,6 +203,9 @@ document.onkeydown = function (e) {
             nextWord = true;
             resetDashes();
             eraseAlreadyGuessed();
+            //selects songs
+            fillWinningSongs();
+            selectSong();
             showImage();
 
             displayDashesArray();
