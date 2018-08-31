@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="./assets/css/reset.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
@@ -16,22 +17,40 @@
 
     <div class="main-header">
         <div class="jumbotron">
+            <div id="logo">
+                <h1>Disney</h1>
+            </div>
             <h1>Welcome to Hangman</h1>
+            <h3>Disney Edition!</h3>
+
         </div>
     </div>
     <div class="container">
         <div class="main-section">
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <p id="display-start"></p>
+            <!-- adding a row -->
+            <div class="row">
+                <div class="col-md-4">
+                    <!-- where the picture goes if user wins-->
+                    <div class="text-center">
+                        <img id="img" src="./assets/images/aladdin.jpg" class="rounded" alt="...">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <p id="display-start"></p>
 
-                    <p id="current-word"></p>
-                    <p id="wins"></p>
-                    <p id="losses"></p>
-                    <p id="remainingGuesses"></p>
-                    <p id="already-guessed">Already Guessed </p>
-                    <p id='display-guessed'></p>
+                            <p id="current-word"></p>
+                            <p id="wins"></p>
+                            <p id="losses"></p>
+                            <p id="remainingGuesses"></p>
+                            <p id="already-guessed">Already Guessed </p>
+                            <p id='display-guessed'></p>
+
+
+                        </div>
+                    </div>
 
 
                 </div>

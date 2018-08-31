@@ -102,6 +102,9 @@ function writeAlreadyGuessed() {
 function eraseAlreadyGuessed() {
     document.getElementById("display-guessed").innerHTML = "";
 }
+function showImage() {
+    document.getElementById("img").style.visibility = 'visible'
+}
 // main function ******************************************************************************
 var intro = "PRESS ANY KEY TO GET STARTED";
 document.getElementById("display-start").innerHTML = intro;
@@ -189,6 +192,7 @@ document.onkeydown = function (e) {
             nextWord = true;
             resetDashes();
             eraseAlreadyGuessed();
+            showImage();
 
             displayDashesArray();
             fillDashesArrayAfter();
