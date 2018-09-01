@@ -4,7 +4,7 @@ var game = {
     // holds number of guesses
     numberOfGuesses: 0,
     //an array full of the words to guess
-    guessTheWords: ['Aladdin', 'Dumbo', 'Bambi', 'Cinderella', 'Pocahontas', 'Hercules', 'Mulan', 'Tarzan', 'Pinocchio', 'Moana', 'Brave', 'Tangled', 'Rapunzal'],
+    guessTheWords: ['Aladdin', 'Dumbo', 'Bambi', 'Cinderella', 'Pocahontas', 'Hercules', 'Mulan', 'Tarzan', 'Pinocchio', 'Moana', 'Brave', 'Tangled'],
     //holds the total amount of guesses the user has, 
     remainingGuesses: 0,
     numOfLosses: 0,
@@ -22,10 +22,12 @@ var game = {
     currentWord: '',
     //holds the song links
     winningSongs: [],
+    winningImages: [],
 
 };
 function setCurrentWord() {
-    game.currentWord = game.guessTheWords[Math.floor(Math.random() * game.guessTheWords.length)];
+    game.randomNumber = Math.floor(Math.random() * game.guessTheWords.length);
+    game.currentWord = game.guessTheWords[game.randomNumber];
 }
 function fillDashesArray() {
     for (index = 0; index < game.currentWord.length; index++) {
@@ -105,16 +107,61 @@ function eraseAlreadyGuessed() {
     document.getElementById("display-guessed").innerHTML = "";
 }
 function showImage() {
-    document.getElementById("img").style.visibility = 'visible'
+    document.getElementById("img").style.visibility = 'visible';
 }
-function fillWinningSongs() {
-    game.winningSongs[0] = "./assets/images/aladdin.jpg";
+function hideImage() {
+    document.getElementById("img").style.visibility = 'hidden';
 
 }
 function selectSong() {
-    var songLink = document.getElementById("img");
-    songLink.src = game.winningSongs[0];
-    console.log(game.winningSongs[0]);
+    song.src = game.winningSongs[game.randomNumber];
+
+}
+function playSong() {
+    song.play();
+}
+function pauseSong() {
+    song.pause();
+}
+function fillWinningImages() {
+    game.winningImages[0] = "./assets/images/aladdin.jpg";
+    game.winningImages[1] = "./assets/images/Dumbo.jpg";
+    game.winningImages[2] = "./assets/images/Bambi.png";
+    game.winningImages[3] = "./assets/images/Cinderella.jpg";
+    game.winningImages[4] = "./assets/images/Pochahontas.jpg";
+    game.winningImages[5] = "./assets/images/Hercules.jpg";
+    game.winningImages[6] = "./assets/images/Mulan.png";
+    game.winningImages[7] = "./assets/images/Tarzan.png";
+    game.winningImages[8] = "./assets/images/Pinocchio.png";
+    game.winningImages[9] = "./assets/images/Moana.png";
+    game.winningImages[10] = "./assets/images/Brave.jpg";
+    game.winningImages[11] = "./assets/images/Tangled.jpg";
+
+
+}
+function fillSongs() {
+    game.winningSongs[0] = "./assets/sounds/aladdin.mp3";
+    game.winningSongs[1] = "./assets/sounds/Dumbo.m4a";
+    game.winningSongs[2] = "./assets/sounds/Bambi.mp3";
+    game.winningSongs[3] = "./assets/sounds/Cinderella.mp3";
+    game.winningSongs[4] = "./assets/sounds/Pocahontas.mp3";
+    game.winningSongs[5] = "./assets/sounds/Hercules.mp3";
+    game.winningSongs[6] = "./assets/sounds/Mulan.mp3";
+    game.winningSongs[7] = "./assets/sounds/Tarzan.mp3";
+    game.winningSongs[8] = "./assets/sounds/Pinocchio.mp3";
+    game.winningSongs[9] = "./assets/sounds/Moana.mp3";
+    game.winningSongs[10] = "./assets/sounds/Brave.mp3";
+    game.winningSongs[11] = "./assets/sounds/Tangled.mp3";
+
+
+
+}
+
+
+//selects a random image
+function selectImage() {
+    var picLink = document.getElementById("img");
+    picLink.src = game.winningImages[game.randomNumber];
 }
 // main function ******************************************************************************
 var intro = "PRESS ANY KEY TO GET STARTED";
@@ -127,15 +174,26 @@ var nextWord = true;
 game.remainingGuesses = 10;
 var isFound = true;
 //if a key is pressed this function will execute
+var song = document.getElementById("audio");
+var songSource;
+
+fillWinningImages();
+fillSongs();
 document.onkeydown = function (e) {
     //key that we guess gets stored here
     game.currentGuess = e.key;
     //if we want a new word do this
     if (nextWord) {
+        pauseSong();
+
+        //makes images hidden
+        hideImage();
         //resets an text in the dashes array area
         resetDashes();
         //sets current word
         setCurrentWord();
+        selectSong();
+        selectImage();
         //check what word is set
         console.log(game.currentWord);
         //fill up the dashes
@@ -204,10 +262,9 @@ document.onkeydown = function (e) {
             resetDashes();
             eraseAlreadyGuessed();
             //selects songs
-            fillWinningSongs();
-            selectSong();
+            selectImage();
             showImage();
-
+            playSong();
             displayDashesArray();
             fillDashesArrayAfter();
         }
