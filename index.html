@@ -14,20 +14,26 @@
 </head>
 
 <body>
-
     <div class="main-header">
         <div class="jumbotron">
-            <div id="logo">
-                <h1>Disney</h1>
+            <!-- add a row to the header -->
+            <div class="row">
+                <div class="col-lg-1">
+                    <div id="logo">
+                        <h1>Disney!</h1>
+                    </div>
+                </div>
+                <div class="col-lg-10">
+                    <div class="header">
+                        <h1>Welcome to Hangman</h1>
+                        <h3>Disney Edition!</h3>
+                    </div>
+                </div>
             </div>
-            <h1>Welcome to Hangman</h1>
-            <h3>Disney Edition!</h3>
-
         </div>
     </div>
     <div class="container">
         <div class="main-section">
-
             <!-- adding a row -->
             <div class="row">
                 <div class="col-md-4">
@@ -40,23 +46,23 @@
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
                             <p id="display-start"></p>
-
                             <p id="current-word"></p>
                             <p id="wins"></p>
                             <p id="losses"></p>
                             <p id="remainingGuesses"></p>
                             <p id="already-guessed">Already Guessed </p>
                             <p id='display-guessed'></p>
-
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
     </div>
+    <footer class="footer fixed-bottom">
+        <div class="container">
+            <span>Developed by Justin Singh</span>
+        </div>
+    </footer>
     <audio id="audio">
         <source id="audioSource" src="" type="audio">
     </audio>

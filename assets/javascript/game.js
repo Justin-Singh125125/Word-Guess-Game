@@ -1,29 +1,33 @@
+//Images are from Disney 
+//soundtracks are from various sources
+
+//game object
 var game = {
-    //holds wins
-    wins: 0,
-    // holds number of guesses
-    numberOfGuesses: 0,
     //an array full of the words to guess
     guessTheWords: ['Aladdin', 'Dumbo', 'Bambi', 'Cinderella', 'Pocahontas', 'Hercules', 'Mulan', 'Tarzan', 'Pinocchio', 'Moana', 'Brave', 'Tangled'],
-    //holds the total amount of guesses the user has, 
-    remainingGuesses: 0,
-    numOfLosses: 0,
-    whenToChange: 0,
     //an empty array where we will push the words already guessed
     //modify those dashes to be removed with each letter
     //everytime a new word is selected, fill this array up with dashes
     //use splice function to remove items
     lettersGuessed: [],
     dashesArray: [],
+    //holds the song links
+    winningSongs: [],
+    winningImages: [],
+    //holds the total amount of guesses the user has, 
+    remainingGuesses: 0,
+    numOfLosses: 0,
+    whenToChange: 0,
+    //holds wins
+    wins: 0,
+    // holds number of guesses
+    numberOfGuesses: 0,
     currentGuess: '',
     //random number
     randomNumber: 0,
     //current word
     currentWord: '',
-    //holds the song links
-    winningSongs: [],
-    winningImages: [],
-
+    //background music for the game
 };
 function setCurrentWord() {
     game.randomNumber = Math.floor(Math.random() * game.guessTheWords.length);
@@ -123,6 +127,7 @@ function playSong() {
 function pauseSong() {
     song.pause();
 }
+//harcode winnning images
 function fillWinningImages() {
     game.winningImages[0] = "./assets/images/aladdin.jpg";
     game.winningImages[1] = "./assets/images/Dumbo.jpg";
@@ -136,9 +141,8 @@ function fillWinningImages() {
     game.winningImages[9] = "./assets/images/Moana.png";
     game.winningImages[10] = "./assets/images/Brave.jpg";
     game.winningImages[11] = "./assets/images/Tangled.jpg";
-
-
 }
+//hardcode links to songs
 function fillSongs() {
     game.winningSongs[0] = "./assets/sounds/aladdin.mp3";
     game.winningSongs[1] = "./assets/sounds/Dumbo.m4a";
@@ -152,12 +156,7 @@ function fillSongs() {
     game.winningSongs[9] = "./assets/sounds/Moana.mp3";
     game.winningSongs[10] = "./assets/sounds/Brave.mp3";
     game.winningSongs[11] = "./assets/sounds/Tangled.mp3";
-
-
-
 }
-
-
 //selects a random image
 function selectImage() {
     var picLink = document.getElementById("img");
@@ -176,16 +175,16 @@ var isFound = true;
 //if a key is pressed this function will execute
 var song = document.getElementById("audio");
 var songSource;
-
+//loads the songs into the arrays
 fillWinningImages();
 fillSongs();
+//everytime a key is pressed, do this
 document.onkeydown = function (e) {
     //key that we guess gets stored here
     game.currentGuess = e.key;
     //if we want a new word do this
     if (nextWord) {
         pauseSong();
-
         //makes images hidden
         hideImage();
         //resets an text in the dashes array area
@@ -282,7 +281,6 @@ document.onkeydown = function (e) {
         //these two are outside of the loop because they will not display the full content of dashes array
 
         //if one of the letters is not found, do this
-
     }
 }
 

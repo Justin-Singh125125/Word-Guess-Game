@@ -5,28 +5,27 @@ body{
     text-align: center;
     overflow: auto;
     background: url("../test/school.png");
-
 }
-
 .card{
     margin: 0 auto;
 }
 /* made the jumbotron a litte smaller */
 .jumbotron{
     padding: 2rem 1rem;
-    background: pink;
+    background:#f441d0;
     clear:both;
-
+    border-radius: 0;
+    border: 2px solid#ff2bed;
 }
-
 #img{
-    width: 150px;
-    height: 125px;
+    width: 100%;
+    height: auto;
     visibility: hidden;
 }
-
 .card-body{
-    background:lightblue;
+    background:#42ebf4;
+    border: 1px solid ;
+    border-radius: 5px;
 }
 #logo{
     font-family: 'Pacifico', cursive;
@@ -35,12 +34,26 @@ body{
     position: relative;
     left: 60px;
     top: 5px;
-  
-
-
-   
-
 }
 #logo h1{
     font-size: 60px;
+}
+.header{
+    margin-top: 20px;
+}
+.footer {
+    text-align: center;
+    background: #5b534e;
+    padding: 20px;
+    font-weight: bold;
+}
+span{
+    color:#bcbbba;
+}
+#current-word{
+    letter-spacing: 10px;
+}
+.card-body{
+    font-weight: bold;
+    font-size: 22px;
 }
