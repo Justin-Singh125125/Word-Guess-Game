@@ -1,6 +1,6 @@
 //Images are from Disney 
 //soundtracks are from various sources
-
+console.log("HEY! NO CHEATING!");
 //game object
 var game = {
     //an array full of the words to guess
@@ -193,8 +193,6 @@ document.onkeydown = function (e) {
         setCurrentWord();
         selectSong();
         selectImage();
-        //check what word is set
-        console.log(game.currentWord);
         //fill up the dashes
         fillDashesArray();
         //display the dashes on screen
