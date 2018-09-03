@@ -19,8 +19,9 @@ body{
 }
 #img{
     width: 100%;
-    height: auto;
+    height: 369px;
     visibility: hidden;
+
 }
 .card-body{
     background:#42ebf4;
