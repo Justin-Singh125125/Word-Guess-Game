@@ -271,7 +271,7 @@ document.onkeydown = function (e) {
 
         }
         else {
-            alert('ERROR: key entered was not apart of the alphabet');
+            alert('ERROR: KEY ENTERED WAS NOT A PART OF THE ALPHABET');
         }
 
         resetDashes();
