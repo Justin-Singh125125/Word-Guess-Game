@@ -4,7 +4,8 @@
 body{
     text-align: center;
     overflow: auto;
-    background: url("../test/school.png");
+    background: url("../images/disney-fuchsia-minnie-icons-fabric_large.jpg");
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 .card{
     margin: 0 auto;
@@ -15,17 +16,17 @@ body{
     background:#f441d0;
     clear:both;
     border-radius: 0;
-    border: 2px solid#ff2bed;
+    border: 3px solid#ff2bed;
 }
 #img{
     width: 100%;
-    height: 369px;
+    height: 404px;
     visibility: hidden;
 
 }
 .card-body{
     background:#42ebf4;
-    border: 1px solid ;
+    border: 2px solid ;
     border-radius: 5px;
 }
 #logo{
@@ -41,6 +42,10 @@ body{
 }
 .header{
     margin-top: 20px;
+   
+}
+h1 ,h3{
+font-weight: bold;
 }
 .footer {
     text-align: center;
