@@ -3,6 +3,7 @@
 console.log("HEY! NO CHEATING!");
 //game object
 var game = {
+    keyBoard: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'],
     //an array full of the words to guess
     guessTheWords: ['Aladdin', 'Dumbo', 'Bambi', 'Cinderella', 'Pocahontas', 'Hercules', 'Mulan', 'Tarzan', 'Pinocchio', 'Moana', 'Brave', 'Tangled'],
     //an empty array where we will push the words already guessed
@@ -29,6 +30,24 @@ var game = {
     currentWord: '',
     //background music for the game
 };
+function checkBoard() {
+    var status = false;
+    //if the letter is not currently a part of the array
+    for (var i = 0; i < game.keyBoard.length; i++) {
+        if (game.currentGuess == game.keyBoard[i]) {
+            status = true;
+            return status;
+        }
+        else {
+            status = false;
+        }
+
+
+    }
+    return status;
+}
+
+
 function setCurrentWord() {
     game.randomNumber = Math.floor(Math.random() * game.guessTheWords.length);
     game.currentWord = game.guessTheWords[game.randomNumber];
@@ -175,6 +194,7 @@ var isFound = true;
 //if a key is pressed this function will execute
 var song = document.getElementById("audio");
 var songSource;
+var apartOfKeyboard = false;
 //loads the songs into the arrays
 fillWinningImages();
 fillSongs();
@@ -204,47 +224,56 @@ document.onkeydown = function (e) {
         nextWord = false;
     }
     else {
-        //first thing we check if we already guessed that letter
-        //if our current guess equals the first element, uppercase it so it fits
-        if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
-            //sets the first element of the dashes array to an uppercase version of the guess
-            game.dashesArray[0] = game.currentGuess.toUpperCase();
-            //increases so program knows when to change the word
-            game.whenToChange++;
-        }
-        //checks the current word and treats it as an array of chars
-        isFound = checkArray();
-        //if the current letter we type in does not exist in current word
-        if (isFound === false) {
-            //we are then going to check to see if the letter we missed is in the missed array 
-            alreadyInputed = isAlreadyGuessed();
-            //if the letter is not in there, put it there
-            if (!alreadyInputed) {
-
-                //while we put it there, decrease our guess by 1
-                game.remainingGuesses--;
-                //pushes the letter to the array
-                game.lettersGuessed.push(game.currentGuess);
-                //write to document
-                eraseAlreadyGuessed();
-                writeAlreadyGuessed();
+        //if the key entered is not apart of the keyboard 
+        apartOfKeyboard = checkBoard();
+        if (apartOfKeyboard) {
+            //first thing we check if we already guessed that letter
+            //if our current guess equals the first element, uppercase it so it fits
+            if (game.currentGuess.toUpperCase() === game.currentWord[0]) {
+                //sets the first element of the dashes array to an uppercase version of the guess
+                game.dashesArray[0] = game.currentGuess.toUpperCase();
+                //increases so program knows when to change the word
+                game.whenToChange++;
             }
+            //checks the current word and treats it as an array of chars
+            isFound = checkArray();
+            //if the current letter we type in does not exist in current word
+            if (isFound === false) {
+                //we are then going to check to see if the letter we missed is in the missed array 
+                alreadyInputed = isAlreadyGuessed();
+                //if the letter is not in there, put it there
+                if (!alreadyInputed) {
 
-        }
-        //suppost to treat the current set word as an array by accessing its characters
-        for (var index = 0; index < game.currentWord.length; index++) {
-            //if the elements in the dashes array are the same as our current guess, do this
-            if (game.dashesArray[index] != game.currentGuess) {
-                //if our current letter guess matches any of the letters inside current word
-                if (game.currentGuess === game.currentWord[index]) {
-                    game.dashesArray[index] = game.currentGuess;
-                    //if the word is already in the dashes array, do not increase when to change
-                    if (game.currentGuess === game.currentWord[index]) {  //increment to the length to know when the word is full
-                        game.whenToChange++;
+                    //while we put it there, decrease our guess by 1
+                    game.remainingGuesses--;
+                    //pushes the letter to the array
+                    game.lettersGuessed.push(game.currentGuess);
+                    //write to document
+                    eraseAlreadyGuessed();
+                    writeAlreadyGuessed();
+                }
+
+            }
+            //suppost to treat the current set word as an array by accessing its characters
+            for (var index = 0; index < game.currentWord.length; index++) {
+                //if the elements in the dashes array are the same as our current guess, do this
+                if (game.dashesArray[index] != game.currentGuess) {
+                    //if our current letter guess matches any of the letters inside current word
+                    if (game.currentGuess === game.currentWord[index]) {
+                        game.dashesArray[index] = game.currentGuess;
+                        //if the word is already in the dashes array, do not increase when to change
+                        if (game.currentGuess === game.currentWord[index]) {  //increment to the length to know when the word is full
+                            game.whenToChange++;
+                        }
                     }
                 }
             }
+
         }
+        else {
+            alert('ERROR: key entered was not apart of the alphabet');
+        }
+
         resetDashes();
         fillDashesArray();
         displayDashesArray();
@@ -280,6 +309,8 @@ document.onkeydown = function (e) {
 
         //if one of the letters is not found, do this
     }
+
+
 }
 
 
